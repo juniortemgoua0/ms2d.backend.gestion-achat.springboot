@@ -2,6 +2,7 @@ package com.gestionachat4.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,28 +12,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gestionachat4.entities.Client;
-import com.gestionachat4.repository.ClientRepository;
+import com.gestionachat4.entities.Produit; 
+import com.gestionachat4.repository.ProduitRepository;
 
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(value = "/client")
-public class ClientController {
+@RequestMapping(value = "/produit")
+public class ProduitController {
 	
 	@Autowired
-	private ClientRepository clientRepository ; 
+	private ProduitRepository produitRepository ; 
 	
 	@RequestMapping(
 			method= RequestMethod.POST , 
-			value="/createclient" , 
+			value="/createproduit" , 
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			consumes = MediaType.APPLICATION_JSON_VALUE			
 			)  
-		public ResponseEntity<?> createClient(@RequestBody Client client) throws Exception {
+		public ResponseEntity<?> createproduit(@RequestBody Produit produit) throws Exception {
 		
-		clientRepository.save(client)	 ;
-		return new ResponseEntity<>(client , HttpStatus.OK) ;
+		produitRepository.save(produit)	 ;
+		return new ResponseEntity<>(produit , HttpStatus.OK) ;
 		}
 	
 	@RequestMapping(
@@ -41,34 +42,36 @@ public class ClientController {
 			produces = MediaType.APPLICATION_JSON_VALUE
 			//consumes = MediaType.APPLICATION_JSON_VALUE			
 			)  
-		public ResponseEntity<?> allClient() throws Exception {
+		public ResponseEntity<?> allproduit() throws Exception {
 		
 		 
-		return new ResponseEntity<>(clientRepository.findAll()	 , HttpStatus.OK) ;
+		return new ResponseEntity<>(produitRepository.getAllProduit()	 , HttpStatus.OK) ;
 		}
 	
+	
+
 	@RequestMapping(
 			method= RequestMethod.POST , 
 			value="/update" , 
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			consumes = MediaType.APPLICATION_JSON_VALUE			
 			)  
-		public <T> ResponseEntity<?> updateClient(@RequestBody Client client) throws Exception {
+		public <T> ResponseEntity<?> updateproduit(@RequestBody Produit produit) throws Exception {
 		
-		System.out.println(client.toString());
-	Client cl = clientRepository.updateById(client.getCodeclient())	 ;
+		System.out.println(produit.toString());
+	Produit cl = produitRepository.updateById(produit.getCodeproduit())	 ;
 	 if (cl==null) {
-		// Object res= new Object( ) {message :" Client introuvable "}  ;
+		// Object res= new Object( ) {message :" produit introuvable "}  ;
 		// res.
-		 //{message :" Client introuvable "} ; 
+		 //{message :" produit introuvable "} ; 
 		 return new ResponseEntity<T>(HttpStatus.NOT_FOUND) ;
 	 } 
 	
-	clientRepository.save(client);
+	produitRepository.save(produit);
 	
-	System.out.println(client.toString());
+	System.out.println(produit.toString());
 	
-		return new ResponseEntity<>(client , HttpStatus.OK) ;
+		return new ResponseEntity<>(produit , HttpStatus.OK) ;
 		}
 
 
@@ -79,20 +82,20 @@ public class ClientController {
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		consumes = MediaType.APPLICATION_JSON_VALUE			
 		)  
-	public <T> ResponseEntity<?> deleteClient(@RequestBody Client client) throws Exception {
+	public <T> ResponseEntity<?> deleteproduit(@RequestBody Produit produit) throws Exception {
 	
-	System.out.println(client.toString());
+	System.out.println(produit.toString());
 	
 	System.out.println("delete test ");
 	System.out.println("delete test ");
 	System.out.println("delete test ");
-	if (clientRepository.findById(client.getCodeclient() ) ==null ) {
+	if (produitRepository.findById(produit.getCodeproduit() ) ==null ) {
 		 return new ResponseEntity<T>(HttpStatus.NOT_FOUND) ;
 	}
 
- clientRepository.deleteById(client.getCodeclient());
+ produitRepository.deleteById(produit.getCodeproduit());
 	
-// Client cl = clientRepository.deteById(client.getCodeclient())	 ;
+// produit cl = produitRepository.deteById(produit.getCodeproduit())	 ;
  
 	return new ResponseEntity<>( HttpStatus.OK) ;
 	}

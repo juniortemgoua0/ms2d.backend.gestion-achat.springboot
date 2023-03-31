@@ -23,6 +23,9 @@ public class Seed implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		
+		// seed pour ajouter des clients par defauts dans le systeme 
+		
+		/*
 		Client c = new Client( " Cabrel", "M", "laroma", "12345") ;
 		Client c1 = new Client( " ange", "F", "manuella", "12345") ;
 		
@@ -33,7 +36,7 @@ public class Seed implements CommandLineRunner {
 		
 		clientRepository.deleteAll();
 		clientRepository.saveAll(maliste) ;
-		
+		*/
 	}
 
 	

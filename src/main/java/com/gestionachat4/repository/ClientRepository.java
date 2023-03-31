@@ -1,6 +1,7 @@
 package com.gestionachat4.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,10 @@ public interface ClientRepository extends JpaRepository<Client , Short > {
 	@Query(" SELECT c FROM Client c") 
 	List<Client> getAllClient() ;
 	
+	// recuperer un user a partir de son code 
+		@Query(" SELECT c FROM Client c WHERE c.codeclient=:codeclient") 
+		 Optional<Client> findById(@Param("codeclient") Short codeclient);
+		
 // recuperer un user a partir de son code 
 	@Query(" SELECT c FROM Client c WHERE c.codeclient=:codeclient") 
 	 Client updateById(@Param("codeclient") Short codeclient);
@@ -26,5 +31,9 @@ public interface ClientRepository extends JpaRepository<Client , Short > {
 	 
 	String findByNom() ;
 	
+	
+ // delete by id 
+		@Query(" DELETE  FROM Client c WHERE c.codeclient=:codeclient") 
+		 void deleteById(@Param("codeclient") short codeclient);
 	
 }
