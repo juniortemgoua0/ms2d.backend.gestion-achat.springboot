@@ -141,7 +141,13 @@ public class Produit implements Serializable {
 
     @Override
     public String toString() {
-        return "generatecode.Produit[ codeproduit=" + codeproduit + " ]";
+        return "Produit{" +
+                "codeproduit=" + codeproduit +
+                ", label='" + label + '\'' +
+                ", pu=" + pu +
+                ", qtestock=" + qtestock +
+                ", qteseuil=" + qteseuil +
+                ", acheterList=" + acheterList +
+                '}';
     }
-    
 }

@@ -165,7 +165,15 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return "generatecode.Client[ codeclient=" + codeclient + " nom "  + nom + " login " + login + " ]";
+        return "Client{" +
+                "codeclient=" + codeclient +
+                ", nom='" + nom + '\'' +
+                ", email='" + email + '\'' +
+                ", sexe='" + sexe + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", datenaiss=" + datenaiss +
+                ", acheterList=" + acheterList +
+                '}';
     }
-    
 }

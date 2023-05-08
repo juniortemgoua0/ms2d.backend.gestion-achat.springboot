@@ -4,19 +4,11 @@
  */
 package com.gestionachat4.entities;
 
+import org.springframework.lang.Nullable;
+
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 /**
  *
@@ -26,16 +18,17 @@ import javax.persistence.TemporalType;
 @Table(name = "acheter")
 @NamedQueries({
     @NamedQuery(name = "Acheter.findAll", query = "SELECT a FROM Acheter a"),
-    @NamedQuery(name = "Acheter.findByCodeclient", query = "SELECT a FROM Acheter a WHERE a.acheterPK.codeclient = :codeclient"),
-    @NamedQuery(name = "Acheter.findByCodeproduit", query = "SELECT a FROM Acheter a WHERE a.acheterPK.codeproduit = :codeproduit"),
-    @NamedQuery(name = "Acheter.findByCodeachat", query = "SELECT a FROM Acheter a WHERE a.acheterPK.codeachat = :codeachat"),
+//    @NamedQuery(name = "Acheter.findByCodeclient", query = "SELECT a FROM Acheter a WHERE a.acheterPK.codeclient = :codeclient"),
+//    @NamedQuery(name = "Acheter.findByCodeproduit", query = "SELECT a FROM Acheter a WHERE a.acheterPK.codeproduit = :codeproduit"),
+//    @NamedQuery(name = "Acheter.findByCodeachat", query = "SELECT a FROM Acheter a WHERE a.acheterPK.codeachat = :codeachat"),
     @NamedQuery(name = "Acheter.findByQte", query = "SELECT a FROM Acheter a WHERE a.qte = :qte"),
     @NamedQuery(name = "Acheter.findByDateachat", query = "SELECT a FROM Acheter a WHERE a.dateachat = :dateachat")})
 public class Acheter implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected AcheterPK acheterPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Short acheterPK;
     @Basic(optional = false)
     @Column(name = "qte")
     private int qte;
@@ -53,25 +46,32 @@ public class Acheter implements Serializable {
     public Acheter() {
     }
 
-    public Acheter(AcheterPK acheterPK) {
-        this.acheterPK = acheterPK;
-    }
+//    public Acheter(AcheterPK acheterPK) {
+//        this.acheterPK = acheterPK;
+//    }
 
-    public Acheter(AcheterPK acheterPK, int qte, Date dateachat) {
-        this.acheterPK = acheterPK;
+//    public Acheter(AcheterPK acheterPK, int qte, Date dateachat) {
+//        this.acheterPK = acheterPK;
+//        this.qte = qte;
+//        this.dateachat = dateachat;
+//    }
+
+//    public Acheter(short codeclient, short codeproduit, int codeachat) {
+//        this.acheterPK = new AcheterPK(codeclient, codeproduit, codeachat);
+//    }
+
+    public Acheter(Client codeclient, Produit codeproduit, int qte, Date dateachat) {
         this.qte = qte;
+        this.client = codeclient;
+        this.produit = codeproduit;
         this.dateachat = dateachat;
     }
 
-    public Acheter(short codeclient, short codeproduit, int codeachat) {
-        this.acheterPK = new AcheterPK(codeclient, codeproduit, codeachat);
-    }
-
-    public AcheterPK getAcheterPK() {
+    public Short getAcheterPK() {
         return acheterPK;
     }
 
-    public void setAcheterPK(AcheterPK acheterPK) {
+    public void setAcheterPK(Short acheterPK) {
         this.acheterPK = acheterPK;
     }
 
@@ -129,7 +129,12 @@ public class Acheter implements Serializable {
 
     @Override
     public String toString() {
-        return "generatecode.Acheter[ acheterPK=" + acheterPK + " ]";
+        return "Acheter{" +
+                "acheterPK=" + acheterPK +
+                ", qte=" + qte +
+                ", dateachat=" + dateachat +
+                ", client=" + client +
+                ", produit=" + produit +
+                '}';
     }
-    
 }

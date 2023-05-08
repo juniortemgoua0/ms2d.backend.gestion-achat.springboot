@@ -15,7 +15,6 @@ public class Seed implements CommandLineRunner {
 		private ClientRepository clientRepository;
 	
 		public Seed( ClientRepository clientRepository) {
-			
 			this.clientRepository = clientRepository;
 		}
 		
